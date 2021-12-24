@@ -5,17 +5,17 @@ enemies = []
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.pos = [random.randint(1, 1000), 4]
+        self.pos = [random.randint(0, 1000), 0]
         self.size = [random.randint(20, 900), 10]
         self.rect = pygame.Rect(self.pos, self.size)
         enemies.append(self)
     def movedown(self):
-        self.pos[1] = self.pos[1] + 3
+        self.pos[1] = self.pos[1] + 2
         self.rect = pygame.Rect(self.pos, self.size)
 Enemy()
 pygame.init()
 game = pygame.display.set_mode((1000, 1000))
-pygame.display.set_caption("The Life of the Rect")
+pygame.display.set_caption("Retro Pygame By Desmond Vasicek")
 running = True
 x = 490
 y = 990
