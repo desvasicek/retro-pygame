@@ -3,4 +3,4 @@ A basic pygame
 
 ![Screenshot](screenshot.png)
 
-Music by AVGVSTA ( https://opengameart.org/content/generic-8-bit-jrpg-soundtrack )
+Music ( https://opengameart.org/content/the-adventure-begins-8-bit-remix )
