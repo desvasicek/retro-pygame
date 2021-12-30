@@ -3,4 +3,4 @@ A basic pygame
 
 ![Screenshot](screenshot.png)
 
-Music by AVGVSTA ( https://opengameart.org/content/generic-8-bit-jrpg-soundtrack )
+Music by bart ( https://opengameart.org/users/bart )
