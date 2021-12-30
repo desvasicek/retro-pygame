@@ -59,7 +59,7 @@ def game_loop():
                         else:
                             width = 10
         keys = pygame.key.get_pressed()
-        game.fill((0, 0, 0))
+        game.fill((0, 0, 12))
         for enemy in enemies:
             pygame.draw.rect(game, (200, 200, 200), enemy.rect)
             enemy.movedown()
