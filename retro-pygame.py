@@ -67,7 +67,7 @@ def game_loop():
                 Enemy()
             if enemy.pos[1] >= 1000:
                 enemies.remove(enemy)
-            if x >= enemy.pos[0] and x <= enemy.pos[0] + enemy.size[0] and y == enemy.pos[1]:
+            if x >= enemy.pos[0] and x <= enemy.pos[0] + enemy.size[0] and y >= enemy.pos[1] and y <= enemy.pos[1] + enemy.size[1]:
                 game_over = True
         if game_over:
             gameover()
