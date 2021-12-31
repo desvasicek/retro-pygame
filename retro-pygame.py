@@ -20,6 +20,29 @@ def game_loop():
                 self.rect = pygame.Rect(self.pos, self.size)
             else:
                 enemies.remove(self)
+    class Player(pygame.sprite.Sprite):
+        def __init__(self, name):
+            super().__init__()
+            self.pos = [490, 990]
+            self.size = [10, 10]
+            self.rect = pygame.Rect(self.pos, self.size)
+        def move(self):
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_LEFT] and self.pos[0] > 10:
+                self.pos[0] -= 10
+            if keys[pygame.K_RIGHT] and self.pos[0] < 990 - self.size[0]:
+                self.pos[0] += 10
+            if keys[pygame.K_UP] and self.pos[1] > 10:
+                self.pos[1] -= 3
+            if keys[pygame.K_DOWN] and self.pos[1] < 990 - self.size[1]:
+                self.pos[1] += 3
+            self.rect = pygame.Rect(self.pos, self.size)
+        def draw(self):
+            pygame.draw.rect(game, (255, 255, 255), self.rect)
+        def collide(self):
+            for enemy in enemies:
+                if self.pos[0] >= enemy.pos[0] and self.pos[0] <= enemy.pos[0] + enemy.size[0] and self.pos[1] >= enemy.pos[1] and self.pos[1] <= enemy.pos[1] + enemy.size[1]:
+                    game_over = True
     Enemy()
     pygame.init()
     mixer.init()
@@ -41,7 +64,7 @@ def game_loop():
     y = 990
     height = 10
     width = 10
-    player = pygame.Rect((x, y), (width, height))
+    player = Player('Player 1')
     vel = 10
     while running:
         pygame.display.flip()
@@ -52,14 +75,8 @@ def game_loop():
                     except:
                         pass
                     print(f"Score: {points}")
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        if width == 10:
-                            width = 5
-                        else:
-                            width = 10
-        keys = pygame.key.get_pressed()
         game.fill((0, 0, 12))
+        player.collide()
         for enemy in enemies:
             pygame.draw.rect(game, (200, 200, 200), enemy.rect)
             enemy.movedown()
@@ -67,23 +84,17 @@ def game_loop():
                 Enemy()
             if enemy.pos[1] >= 1000:
                 enemies.remove(enemy)
-            if x >= enemy.pos[0] and x <= enemy.pos[0] + enemy.size[0] and y >= enemy.pos[1] and y <= enemy.pos[1] + enemy.size[1]:
+            if player.pos[0] >= enemy.pos[0] and player.pos[0] <= enemy.pos[0] + enemy.size[0] and player.pos[1] >= enemy.pos[1] and player.pos[1] <= enemy.pos[1] + enemy.size[1]:
                 game_over = True
         if game_over:
             gameover()
-            pygame.draw.rect(game, (255, 255, 255), (490, 990, 10, 10))
+            player.draw()
         else:
             points += 1.5
-            if keys[pygame.K_LEFT] and x > 10:
-                x -= 10
-            if keys[pygame.K_RIGHT] and x < 990 - width:
-                x += 10
-            if keys[pygame.K_UP] and y > 10:
-                y -= 3
-            if keys[pygame.K_DOWN] and y < 990 - height:
-                y += 3
-            pygame.draw.rect(game, (255, 255, 255), (x, y, width, height))
+            player.draw()
+            player.move()
         if game_over:
+            keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
                 pygame.quit()
                 game_loop()
