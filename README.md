@@ -10,4 +10,4 @@ Use:
 - [x] Extract ZIP
 - [x] Go to linux or other Terminal
 - [x] ``python3 /path/to/retro-pygame.py``
-- [ ] Please suggest changes...
+- [ ] Please suggest changes... 😁
