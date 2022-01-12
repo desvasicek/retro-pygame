@@ -4,7 +4,7 @@ A basic pygame
 ![Screenshot](screenshot.png)
 
 Music by bart ( https://opengameart.org/users/bart )
-Images by kenny ( https://opengameart.org/users/kenney ) ( www.kenny.nl )
+Images by kenney ( https://opengameart.org/users/kenney ) ( https://kenney.nl/ )
 
 Use:
 - [x] [Click Here](https://github.com/desvasicek/retro-pygame/archive/refs/heads/main.zip)
