@@ -8,11 +8,9 @@ from colorama import Fore
 import psutil, os
 import math
 def load():
-    name1 = input("Enter player 1 name: ")
-    name2 = input("Enter player 2 name: ")
     other = False
-    game_loop(name1, name2, other)
-def game_loop(name1, name2, other):
+    game_loop(other)
+def game_loop(other):
     if other:
         other = False
     else:
@@ -25,9 +23,11 @@ def game_loop(name1, name2, other):
         def __init__(self):
             super().__init__()
             self.pos = [random.randint(-200, 1000), 0]
-            self.size = [random.randint(20, 900), 10]
+            self.size = [10, 10]
             self.rect = pygame.Rect(self.pos, self.size)
             self.no = random.randint(10000, 99999)
+            self.image = "/home/pi/retro-pygame/images/PNG/Meteors/meteorGrey_big3.png"
+            self.size = [89, 82]
             enemies.append(self)
         def movedown(self):
             if not game_over:
@@ -38,12 +38,11 @@ def game_loop(name1, name2, other):
         def destroy(self):
             enemies.remove(self)
     class Player(pygame.sprite.Sprite):
-        def __init__(self, name):
+        def __init__(self):
             super().__init__()
             self.pos = [490, 990]
             self.size = [10, 10]
             self.rect = pygame.Rect(self.pos, self.size)
-            self.name = name
             self.color = (230, 230, 230)
         def move(self):
             keys = pygame.key.get_pressed()
@@ -57,10 +56,8 @@ def game_loop(name1, name2, other):
                 self.pos[1] += 4
             self.rect = pygame.Rect(self.pos, self.size)
         def draw(self):
-            pygame.draw.rect(game, (255, 255, 255), self.rect)
-            font = pygame.font.SysFont('Press Start 2P', 10)
-            self.namedisplay = font.render(self.name, False, self.color)
-            game.blit(self.namedisplay, (self.pos[0] - (math.ceil(len(self.name))) - 15, self.pos[1] - 15))
+            self.image = pygame.transform.scale(pygame.image.load("/home/pi/retro-pygame/images/PNG/playerShip2_orange.png"), [20, 20])
+            game.blit(self.image, self.rect)
         def collide(self):
             for enemy in enemies:
                 if self.pos[0] >= enemy.pos[0] and self.pos[0] <= enemy.pos[0] + enemy.size[0] and self.pos[1] >= enemy.pos[1] and self.pos[1] <= enemy.pos[1] + enemy.size[1]:
@@ -86,10 +83,7 @@ def game_loop(name1, name2, other):
     y = 990
     height = 10
     width = 10
-    if other:
-        player = Player(name1)
-    else:
-        player = Player(name2)
+    player = Player()
     vel = 10
     while running:
         try:
@@ -111,7 +105,7 @@ def game_loop(name1, name2, other):
                 if health == 0:
                     game_over = True
             for enemy in enemies:
-                pygame.draw.rect(game, (200, 200, 200), enemy.rect)
+                game.blit(pygame.image.load(enemy.image), enemy.rect)
                 enemy.movedown()
                 if enemy.pos[1] == 100:
                     Enemy()
@@ -132,7 +126,7 @@ def game_loop(name1, name2, other):
                             print(f"Player 1 Score: {points}")
                     else:
                             print(f"Player 2 score: {points}") 
-                    game_loop(name1, name2, other)
+                    game_loop(other)
                     break
             pygame.display.update()
         except:
